@@ -1,30 +1,22 @@
-import "./ProductCard.css";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-function ProductCard({ product }) {
-  const statusClass = `product-status ${product.card_status === "Available" ? "available" : ""}`;
+export default function ProductCard({ product, onAddToCart }) {
+  const navigate = useNavigate();
 
   return (
     <div className="product-card">
       <img
-        className="product-img"
         src={product.card_image}
         alt={product.card_name}
+        className="product-image"
+        onClick={() => navigate(`/preview/${product.id}`)}
+        style={{ cursor: "pointer" }}
       />
-      <h3 className="product-title">{product.card_name}</h3>
-      <p className="product-price">{product.card_price}</p>
-      <p className={statusClass}>Status: {product.card_status}</p>
-
-      <div className="product-actions">
-        <a
-          className="contact-link"
-          href="https://t.me/Ruka1111"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Contact on Telegram
-        </a>
-      </div>
+      <h3>{product.card_name}</h3>
+      <p>Price: ${product.card_price}</p>
+      <p>Status: {product.card_status}</p>
+      <button onClick={() => onAddToCart(product.id)}>Add to Cart</button>
     </div>
   );
 }
-export default ProductCard;

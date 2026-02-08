@@ -1,0 +1,74 @@
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #fffaf5;
+}
+
+.hero {
+  width: 90%;              /* shrink width for smaller box */
+  max-width: 600px;         /* max width to keep it neat */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px;            /* optional padding for breathing space */
+  background: rgba(255, 255, 255, 0.8); /* subtle card effect */
+  border-radius: 20px;      /* soft rounded corners */
+  box-shadow: 0 10px 30px rgba(255, 79, 216, 0.2); /* soft K-pop glow */
+}
+
+.hero h1 {
+  font-size: 42px;           /* slightly smaller for the box */
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  background: linear-gradient(45deg, #ff4fd8, #6a5acd);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  color: #222;
+  margin: 0;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+.btn.primary {
+  background: linear-gradient(45deg, #ff4fd8, #6a5acd);
+  color: #fff;
+}
+
+.btn.primary:hover {
+  transform: translateY(-3px);
+  opacity: 0.9;
+}
+
+.btn.secondary {
+  border: 2px solid #ff4fd8;
+  color: #ff4fd8;
+  background: transparent;
+}
+
+.btn.secondary:hover {
+  background: rgba(255, 79, 216, 0.1);
+}

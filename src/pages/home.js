@@ -1,30 +1,31 @@
+import "./home.css";
 import { Link } from "react-router-dom";
 
-function Home() {
+export default function Home() {
   return (
-    <div style={{ padding: 24 }}>
-      <h1>Welcome to Rami’s Dreamland ✨</h1>
-      <p style={{ maxWidth: 600 }}>
-        Browse photocards and merch from your favourite idols. Click “Shop” to start.
-      </p>
+    <div className="container home">
+      <div className="hero">
+        <h1>Rami’s Dreamland ✨</h1>
+        <p>
+          Your trusted K-pop marketplace for authentic merch, trades,
+          and exclusive concert updates.
+        </p>
 
-      <Link
-        to="/shop"
-        style={{
-          display: "inline-block",
-          marginTop: 12,
-          background: "#111",
-          color: "#fff",
-          padding: "10px 14px",
-          borderRadius: 8,
-          textDecoration: "none",
-          fontWeight: 700
-        }}
-      >
-        Go to Shop
-      </Link>
+        <div className="hero-buttons">
+          <Link to="/shop" className="btn primary">
+            Shop Now
+          </Link>
+
+          <a
+            href="https://t.me/Ruka1111"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn secondary"
+          >
+            Join Telegram
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
-
-export default Home;
