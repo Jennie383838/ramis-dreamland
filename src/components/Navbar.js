@@ -1,14 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import "./Navbar.css";
+
+const linkClass = ({ isActive }) => `nav-link${isActive ? " active" : ""}`;
 
 function Navbar() {
   return (
-    <nav style={{ padding: "15px", borderBottom: "1px solid #ddd" }}>
-      <Link to="/" style={{ marginRight: "15px" }}>Home</Link>
-      <Link to="/shop" style={{ marginRight: "15px" }}>Shop</Link>
-      <Link to="/about" style={{ marginRight: "15px" }}>About</Link>
-      <Link to="/preview">Telegram</Link>
+    <nav className="navbar">
+      <div className="navbar-inner">
+        <Link to="/" className="brand">Rami’s Dreamland</Link>
+        <div className="nav-links">
+          <NavLink to="/" className={linkClass}>Home</NavLink>
+          <NavLink to="/shop" className={linkClass}>Shop</NavLink>
+          <NavLink to="/preview/1" className={linkClass}>Preview</NavLink>
+          <NavLink to="/about" className={linkClass}>About</NavLink>
+        </div>
+      </div>
     </nav>
   );
 }
-
 export default Navbar;

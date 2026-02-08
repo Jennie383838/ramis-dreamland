@@ -1,22 +1,27 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/home";
-import About from "./pages/about";
 import Shop from "./pages/shop";
 import Preview from "./pages/preview";
+import About from "./pages/about";
+import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/preview" element={<Preview />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="app-shell">
+      <BrowserRouter>
+        <Navbar />
+        <main className="app-main">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/preview/:id" element={<Preview />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<div className="container">Not Found</div>} />
+          </Routes>
+        </main>
+      </BrowserRouter>
+    </div>
   );
 }
-
 export default App;

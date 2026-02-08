@@ -1,25 +1,28 @@
+import { Link } from "react-router-dom";
+
 function Home() {
   return (
-    <div style={{ padding: "40px" }}>
-      <h1>Rami’s Dreamland</h1>
-      <p>Welcome to Rami’s Dreamland — updates, deals, and more on Telegram.</p>
+    <div style={{ padding: 24 }}>
+      <h1>Welcome to Rami’s Dreamland ✨</h1>
+      <p style={{ maxWidth: 600 }}>
+        Browse photocards and merch from your favourite idols. Click “Shop” to start.
+      </p>
 
-      <a
-        href="https://t.me/Ruka1111"
-        target="_blank"
-        rel="noreferrer"
+      <Link
+        to="/shop"
         style={{
           display: "inline-block",
-          marginTop: "20px",
-          padding: "12px 20px",
-          backgroundColor: "#0088cc",
-          color: "white",
+          marginTop: 12,
+          background: "#111",
+          color: "#fff",
+          padding: "10px 14px",
+          borderRadius: 8,
           textDecoration: "none",
-          borderRadius: "6px"
+          fontWeight: 700
         }}
       >
-        Join this channel 
-      </a>
+        Go to Shop
+      </Link>
     </div>
   );
 }

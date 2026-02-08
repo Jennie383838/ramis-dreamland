@@ -1,0 +1,30 @@
+.preview-wrap {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 24px;
+}
+.preview-img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: var(--shadow);
+}
+.preview-title {
+  margin: 0 0 12px;
+  font-size: 28px;
+}
+.preview-meta p {
+  margin: 6px 0;
+  font-size: 16px;
+}
+.preview-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+@media (max-width: 900px) {
+  .preview-wrap {
+    grid-template-columns: 1fr;
+  }
+}
