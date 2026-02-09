@@ -1,33 +1,34 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CartProvider } from "./context/CartContext";
+
 import Navbar from "./components/Navbar";
 
+// pages
 import Home from "./pages/home";
-import Shop from "./pages/shop";
 import Preview from "./pages/preview";
 import About from "./pages/about";
+import Shop from "./pages/shop";
+import Cart from "./pages/cart";
+import Checkout from "./pages/checkout";
 
 import "./App.css";
 
-function App() {
+export default function App() {
   return (
-    <BrowserRouter>
-      <div className="app-shell">
+    <CartProvider>
+      <BrowserRouter>
         <Navbar />
-        <main className="app-main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/preview/:id" element={<Preview />} />
-            <Route path="/about" element={<About />} />
-            <Route
-              path="*"
-              element={<div className="container">Page Not Found</div>}
-            />
-          </Routes>
-        </main>
-      </div>
-    </BrowserRouter>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/preview" element={<Preview />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+        </Routes>
+
+      </BrowserRouter>
+    </CartProvider>
   );
 }
-
-export default App;

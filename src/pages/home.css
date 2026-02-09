@@ -1,74 +1,95 @@
-.home {
+/* ===== PAGE BACKGROUND (Home only) ===== */
+.container.home {
+  min-height: calc(100vh - 64px);
+  background: linear-gradient(180deg, #fff1f8, #fffaf2);
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  min-height: 100vh;
-  padding: 20px;
-  background-color: #fffaf5;
+  padding: 48px 20px;
 }
 
+/* ===== HERO CARD ===== */
 .hero {
-  width: 90%;              /* shrink width for smaller box */
-  max-width: 600px;         /* max width to keep it neat */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 30px;            /* optional padding for breathing space */
-  background: rgba(255, 255, 255, 0.8); /* subtle card effect */
-  border-radius: 20px;      /* soft rounded corners */
-  box-shadow: 0 10px 30px rgba(255, 79, 216, 0.2); /* soft K-pop glow */
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 44px 52px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  box-shadow:
+    0 22px 45px rgba(255, 94, 203, 0.18),
+    0 10px 20px rgba(122, 92, 255, 0.12);
+  animation: heroIn 0.7s ease-out;
 }
 
+/* ===== TITLE ===== */
 .hero h1 {
-  font-size: 42px;           /* slightly smaller for the box */
-  font-family: "Playfair Display", serif;
-  font-weight: 700;
-  background: linear-gradient(45deg, #ff4fd8, #6a5acd);
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, #ff5ecb, #7a5cff);
   -webkit-background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
+/* ===== DESCRIPTION ===== */
 .hero p {
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  color: #222;
-  margin: 0;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 32px;
+  line-height: 1.6;
 }
 
+/* ===== BUTTONS ===== */
 .hero-buttons {
   display: flex;
-  gap: 15px;
+  gap: 16px;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
+/* shared button base */
 .btn {
-  display: inline-block;
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-weight: bold;
+  padding: 12px 26px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
   text-decoration: none;
-  transition: all 0.3s ease;
-  font-family: "Poppins", sans-serif;
+  transition: all 0.25s ease;
 }
 
+/* primary */
 .btn.primary {
-  background: linear-gradient(45deg, #ff4fd8, #6a5acd);
+  background: linear-gradient(90deg, #ff5ecb, #7a5cff);
   color: #fff;
+  box-shadow: 0 8px 22px rgba(122, 92, 255, 0.35);
 }
 
 .btn.primary:hover {
-  transform: translateY(-3px);
-  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(122, 92, 255, 0.45);
 }
 
+/* secondary */
 .btn.secondary {
-  border: 2px solid #ff4fd8;
-  color: #ff4fd8;
   background: transparent;
+  color: #ff5ecb;
+  border: 2px solid #ff5ecb;
 }
 
 .btn.secondary:hover {
-  background: rgba(255, 79, 216, 0.1);
+  background: #fff0fa;
+  transform: translateY(-2px);
+}
+
+/* ===== ANIMATION ===== */
+@keyframes heroIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

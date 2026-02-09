@@ -10,12 +10,14 @@ function Navbar() {
         <Link to="/" className="brand">Rami’s Dreamland</Link>
         <div className="nav-links">
           <NavLink to="/" className={linkClass}>Home</NavLink>
-          <NavLink to="/shop" className={linkClass}>Shop</NavLink>
-          <NavLink to="/preview/1" className={linkClass}>Preview</NavLink>
+          <NavLink to="/preview" className={linkClass}>Preview</NavLink>
           <NavLink to="/about" className={linkClass}>About</NavLink>
+          <NavLink to="/shop" className={linkClass}>Shop</NavLink>
+          <NavLink to="/cart" className={linkClass}>Cart</NavLink>
         </div>
       </div>
     </nav>
   );
 }
+
 export default Navbar;
