@@ -3,7 +3,7 @@ import ProductCard from "../components/ProductCard";
 import "./shop.css";
 
 // Uses proxy → http://localhost:3000/products
-const API_URL = "/products";
+// const API_URL = "https://personalwebsite-1-ngee.onrender.com/products";
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
@@ -17,7 +17,7 @@ export default function Shop() {
 
     const fetchProducts = async () => {
       try {
-        const response = await fetch(API_URL);
+        const response = await fetch("https://personalwebsite-1-ngee.onrender.com/products");
 
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}`);
