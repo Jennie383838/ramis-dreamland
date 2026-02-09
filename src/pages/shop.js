@@ -2,57 +2,69 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import "./shop.css";
 
-// Uses proxy → http://localhost:3001/products
+// Uses proxy → http://localhost:3000/products
 const API_URL = "/products";
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
   const [filterAvailable, setFilterAvailable] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
 
   // 🔹 Fetch products from backend
   useEffect(() => {
+    let isMounted = true;
+
     const fetchProducts = async () => {
       try {
         const response = await fetch(API_URL);
 
         if (!response.ok) {
-          throw new Error("Failed to fetch products");
+          throw new Error(`HTTP ${response.status}`);
         }
 
         const data = await response.json();
-        setProducts(data);
-      } catch {
-        setError("Could not load products");
+
+        if (isMounted) {
+          setProducts(Array.isArray(data) ? data : []);
+          setError(null);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err.message || "Could not load products");
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchProducts();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // 🔹 Add to cart (placeholder)
   const addToCart = (id) => {
-    alert(`Product ${id} added to cart`);
+    console.log(`Product ${id} added to cart`);
   };
 
   // 🔹 Filter available products
   const filteredProducts = filterAvailable
     ? products.filter(
-        (p) => p.card_status?.toLowerCase() === "available"
+        (p) => String(p.card_status).toLowerCase() === "available"
       )
     : products;
 
-  // 🔹 Loading state
   if (loading) {
     return <div className="container">Loading products...</div>;
   }
 
-  // 🔹 Error state
   if (error) {
-    return <div className="container">{error}</div>;
+    return <div className="container error">{error}</div>;
   }
 
   return (
@@ -74,7 +86,7 @@ export default function Shop() {
             <ProductCard
               key={product.id}
               product={product}
-              onAddToCart={() => addToCart(product.id)}
+              onAddToCart={addToCart}
             />
           ))
         ) : (
