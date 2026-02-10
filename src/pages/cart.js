@@ -4,11 +4,11 @@ import CartItem from "../components/CartItem";
 import "./cart.css";
 
 export default function Cart() {
-  const { cartItems, removeFromCart } = useCart();
+  const { cart, removeFromCart } = useCart(); // ✅ correct
   const navigate = useNavigate();
 
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.card_price,
+  const total = cart.reduce(
+    (sum, item) => sum + item.card_price * item.qty,
     0
   );
 
@@ -16,16 +16,16 @@ export default function Cart() {
     <div className="cart-container">
       <h1>Your Cart</h1>
 
-      {cartItems.length === 0 ? (
+      {cart.length === 0 ? (
         <p className="empty">Your cart is empty 💗</p>
       ) : (
         <>
           <div className="cart-list">
-            {cartItems.map((item) => (
+            {cart.map((item) => (
               <CartItem
                 key={item.id}
                 item={item}
-                onRemove={removeFromCart}
+                onRemove={() => removeFromCart(item.id)}
               />
             ))}
           </div>

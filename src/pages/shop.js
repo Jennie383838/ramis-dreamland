@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import "./shop.css";
-
-// Uses proxy → http://localhost:3000/products
-// const API_URL = "https://personalwebsite-1-ngee.onrender.com/products";
+import { useCart } from "../context/CartContext";
 
 export default function Shop() {
+  const { addToCart } = useCart();
+
   const [products, setProducts] = useState([]);
   const [filterAvailable, setFilterAvailable] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,9 @@ export default function Shop() {
 
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://personalwebsite-1-ngee.onrender.com/products");
+        const response = await fetch(
+          "https://personalwebsite-1-ngee.onrender.com/products"
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}`);
@@ -46,11 +48,6 @@ export default function Shop() {
       isMounted = false;
     };
   }, []);
-
-  // 🔹 Add to cart (placeholder)
-  const addToCart = (id) => {
-    console.log(`Product ${id} added to cart`);
-  };
 
   // 🔹 Filter available products
   const filteredProducts = filterAvailable
@@ -86,7 +83,7 @@ export default function Shop() {
             <ProductCard
               key={product.id}
               product={product}
-              onAddToCart={addToCart}
+              onAddToCart={() => addToCart(product)}
             />
           ))
         ) : (
