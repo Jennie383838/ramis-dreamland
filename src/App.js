@@ -9,6 +9,7 @@ import About from "./pages/about";
 import Shop from "./pages/shop";
 import Cart from "./pages/cart";
 import Checkout from "./pages/checkout";
+import OrderPage from "./pages/OrderPage"; // 👈 NEW
 
 import "./App.css";
 
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/order" element={<OrderPage />} /> {/* 👈 NEW */}
         </Routes>
 
       </BrowserRouter>

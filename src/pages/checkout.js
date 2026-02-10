@@ -1,10 +1,11 @@
 import { useCart } from "../context/CartContext";
 import { useState } from "react";
-import emailjs from "@emailjs/browser";
+import { useNavigate } from "react-router-dom";
 import "./checkout.css";
 
 export default function Checkout() {
-  const { cart, clearCart } = useCart();
+  const { cart } = useCart();
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     name: "",
@@ -18,15 +19,6 @@ export default function Checkout() {
     0
   );
 
-  const orderText = cart
-    .map(
-      (item) =>
-        `${item.card_name} x${item.qty} - $${(
-          item.qty * item.card_price
-        ).toFixed(2)}`
-    )
-    .join("\n");
-
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
@@ -37,19 +29,14 @@ export default function Checkout() {
       return;
     }
 
-    emailjs.send(
-      "YOUR_SERVICE_ID",
-      "YOUR_TEMPLATE_ID",
-      {
-        ...form,
-        order: orderText,
+    // 👉 go to order page with data
+    navigate("/order", {
+      state: {
+        customer: form,
+        cart,
         total: total.toFixed(2),
       },
-      "YOUR_PUBLIC_KEY"
-    );
-
-    alert("🎉 Order sent successfully!");
-    clearCart();
+    });
   }
 
   return (

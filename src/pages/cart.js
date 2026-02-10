@@ -8,6 +8,7 @@ export default function Cart() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const total = cart.reduce(
     (sum, item) => sum + Number(item.card_price) * item.qty,
@@ -18,75 +19,87 @@ export default function Cart() {
     if (cart.length === 0) return;
 
     setLoading(true);
+    setShowModal(true);
 
-    // K-pop style popup
+    // show modal briefly, then go to checkout
     setTimeout(() => {
-      alert("🎉 Ready for checkout! Your idols are waiting 💖");
+      setShowModal(false);
       navigate("/checkout");
-    }, 900);
+    }, 1200);
   }
 
   return (
-    <div className="cart-container">
-      <h1>Your Cart</h1>
+    <>
+      <div className="cart-container">
+        <h1>Your Cart</h1>
 
-      {cart.length === 0 ? (
-        <p>Your cart is empty 💗</p>
-      ) : (
-        <>
-          {cart.map((item) => {
-            const price = Number(item.card_price);
-            const subtotal = price * item.qty;
+        {cart.length === 0 ? (
+          <p>Your cart is empty 💗</p>
+        ) : (
+          <>
+            {cart.map((item) => {
+              const price = Number(item.card_price);
+              const subtotal = price * item.qty;
 
-            return (
-              <div className="cart-row" key={item.card_name}>
-                <img src={item.card_image} alt={item.card_name} />
+              return (
+                <div className="cart-row" key={item.card_name}>
+                  <img src={item.card_image} alt={item.card_name} />
 
-                <div className="cart-name">
-                  {item.card_name}
-                </div>
+                  <div className="cart-name">
+                    {item.card_name}
+                  </div>
 
-                <div>${price.toFixed(2)}</div>
+                  <div>${price.toFixed(2)}</div>
 
-                <div className="qty">
-                  <button onClick={() => decreaseQty(item.card_name)}>
-                    −
+                  <div className="qty">
+                    <button onClick={() => decreaseQty(item.card_name)}>
+                      −
+                    </button>
+
+                    <span>{item.qty}</span>
+
+                    <button onClick={() => addToCart(item)}>
+                      +
+                    </button>
+                  </div>
+
+                  <div>${subtotal.toFixed(2)}</div>
+
+                  <button
+                    className="delete"
+                    onClick={() => removeFromCart(item.card_name)}
+                  >
+                    Delete
                   </button>
-
-                  <span>{item.qty}</span>
-
-                  <button onClick={() => addToCart(item)}>
-                    +
-                  </button>
                 </div>
+              );
+            })}
 
-                <div>${subtotal.toFixed(2)}</div>
+            <h2>Total: ${total.toFixed(2)}</h2>
 
-                <button
-                  className="delete"
-                  onClick={() => removeFromCart(item.card_name)}
-                >
-                  Delete
-                </button>
-              </div>
-            );
-          })}
+            <button
+              className="checkout-btn"
+              onClick={handleCheckout}
+              disabled={loading}
+              style={{
+                opacity: loading ? 0.7 : 1,
+                cursor: loading ? "not-allowed" : "pointer",
+              }}
+            >
+              {loading ? "Preparing Stage ✨" : "Checkout"}
+            </button>
+          </>
+        )}
+      </div>
 
-          <h2>Total: ${total.toFixed(2)}</h2>
-
-          <button
-            className="checkout-btn"
-            onClick={handleCheckout}
-            disabled={loading}
-            style={{
-              opacity: loading ? 0.7 : 1,
-              cursor: loading ? "not-allowed" : "pointer",
-            }}
-          >
-            {loading ? "Preparing Stage ✨" : "Checkout"}
-          </button>
-        </>
+      {/* 👇 CENTER POP-OUT MODAL */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <p>🎉 Ready for checkout! Your idols are waiting 💖</p>
+          </div>
+        </div>
       )}
-    </div>
+    </>
   );
 }
