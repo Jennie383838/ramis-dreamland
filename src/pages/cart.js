@@ -21,7 +21,6 @@ export default function Cart() {
     setLoading(true);
     setShowModal(true);
 
-    // show modal briefly, then go to checkout
     setTimeout(() => {
       setShowModal(false);
       navigate("/checkout");
@@ -30,7 +29,14 @@ export default function Cart() {
 
   return (
     <>
-      <div className="cart-container">
+      <div
+        className="cart-container"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <h1>Your Cart</h1>
 
         {cart.length === 0 ? (
@@ -42,46 +48,125 @@ export default function Cart() {
               const subtotal = price * item.qty;
 
               return (
-                <div className="cart-row" key={item.card_name}>
-                  <img src={item.card_image} alt={item.card_name} />
+                <div
+                  key={item.card_name}
+                  style={{
+                    display: "flex",
+                    gap: "28px",
+                    width: "100%",
+                    maxWidth: "800px",
+                    padding: "20px 0",
+                    borderBottom: "1px solid #eee",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  {/* IMAGE COLUMN */}
+                  <img
+                    src={item.card_image}
+                    alt={item.card_name}
+                    style={{
+                      width: "160px",
+                      height: "220px",
+                      objectFit: "cover",
+                      borderRadius: "14px",
+                      backgroundColor: "#f5f5f5",
+                      flexShrink: 0,
+                    }}
+                  />
 
-                  <div className="cart-name">
-                    {item.card_name}
-                  </div>
-
-                  <div>${price.toFixed(2)}</div>
-
-                  <div className="qty">
-                    <button onClick={() => decreaseQty(item.card_name)}>
-                      −
-                    </button>
-
-                    <span>{item.qty}</span>
-
-                    <button onClick={() => addToCart(item)}>
-                      +
-                    </button>
-                  </div>
-
-                  <div>${subtotal.toFixed(2)}</div>
-
-                  <button
-                    className="delete"
-                    onClick={() => removeFromCart(item.card_name)}
+                  {/* DETAILS COLUMN */}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "12px",
+                      flex: 1,
+                    }}
                   >
-                    Delete
-                  </button>
+                    <div
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "600",
+                      }}
+                    >
+                      {item.card_name}
+                    </div>
+
+                    <div style={{ fontSize: "16px" }}>
+                      ${price.toFixed(2)}
+                    </div>
+
+                    {/* QTY */}
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "14px",
+                        marginTop: "6px",
+                      }}
+                    >
+                      <button
+                        onClick={() => decreaseQty(item.card_name)}
+                        style={{
+                          width: "40px",
+                          height: "40px",
+                          fontSize: "22px",
+                          borderRadius: "10px",
+                        }}
+                      >
+                        −
+                      </button>
+
+                      <span
+                        style={{
+                          minWidth: "32px",
+                          textAlign: "center",
+                          fontSize: "18px",
+                          fontWeight: "500",
+                        }}
+                      >
+                        {item.qty}
+                      </span>
+
+                      <button
+                        onClick={() => addToCart(item)}
+                        style={{
+                          width: "40px",
+                          height: "40px",
+                          fontSize: "22px",
+                          borderRadius: "10px",
+                        }}
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <div style={{ fontSize: "16px" }}>
+                      Subtotal: ${subtotal.toFixed(2)}
+                    </div>
+
+                    <button
+                      className="delete"
+                      onClick={() => removeFromCart(item.card_name)}
+                      style={{ alignSelf: "flex-start" }}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               );
             })}
 
-            <h2>Total: ${total.toFixed(2)}</h2>
+            <h2 style={{ marginTop: "30px" }}>
+              Total: ${total.toFixed(2)}
+            </h2>
 
             <button
               className="checkout-btn"
               onClick={handleCheckout}
               disabled={loading}
               style={{
+                marginTop: "20px",
                 opacity: loading ? 0.7 : 1,
                 cursor: loading ? "not-allowed" : "pointer",
               }}
@@ -92,7 +177,6 @@ export default function Cart() {
         )}
       </div>
 
-      {/* 👇 CENTER POP-OUT MODAL */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-box">

@@ -34,23 +34,23 @@ export default function Shop() {
   }, []);
 
   const handleAddToCart = (product) => {
-    // IMPORTANT: do NOT generate cartId here
     addToCart(product);
   };
 
   if (loading) {
-    return <p className="shop-status">Loading products…</p>;
+    return <div className="state-box">Loading products…</div>;
   }
 
   if (error) {
-    return <p className="shop-status error">{error}</p>;
+    return <div className="state-box">{error}</div>;
   }
 
   return (
-    <div className="container">
+    <div className="shop-wrap">
       <h1>Shop</h1>
 
-      <div className="product-grid">
+      {/* 👇 THIS MUST MATCH .products-grid */}
+      <div className="products-grid">
         {products.map((product) => (
           <ProductCard
             key={product.card_name}

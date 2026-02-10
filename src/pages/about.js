@@ -1,49 +1,54 @@
+import "./about.css";
+
 export default function About() {
   return (
-    <div className="container about">
-      <h1>About Rami’s Dreamland ✨</h1>
+    <div className="about-page">
+      <div className="about-box">
+        {/* EVERYTHING YOU ALREADY HAVE GOES INSIDE HERE */}
 
-      <p className="about-intro">
-        Rami’s Dreamland is a trusted K-pop marketplace built by fans, for fans.
-        We provide a safe and friendly space to buy, sell, and trade authentic
-        K-pop merchandise while connecting collectors and stans from all around.
-      </p>
+        <h1>About Rami’s Dreamland ✨</h1>
 
-      <section className="about-section">
+        <p>
+          Rami’s Dreamland is a trusted K-pop marketplace built by fans, for fans.
+          Our goal is to provide a safe, friendly, and welcoming space where
+          collectors and stans can confidently buy, sell, and trade authentic
+          K-pop merchandise. We believe fandoms should feel like home —
+          supportive, transparent, and fun. Every listing, trade, and
+          interaction is built on trust and love for K-pop culture.
+        </p>
+
         <h3>What We Offer</h3>
         <ul>
           <li>100% authentic K-pop albums & photocards</li>
-          <li>Buy / Sell / Trade services</li>
+          <li>Buy / sell / Trade services</li>
           <li>Concert updates & exclusive fan photos</li>
+          <li>Community-driven announcements and events</li>
         </ul>
-      </section>
 
-      <section className="about-section">
         <h3>Our Team</h3>
-        <ul className="team-list">
-          <li><strong>Owner:</strong> @Ruka_Forever</li>
-          <li><strong>Co-Owner:</strong> @gabbysyj</li>
-          <li><strong>Rules Manager:</strong> @xavierkoh1</li>
-          <li><strong>Sales Support:</strong> @Rin_yujinsbangs</li>
-        </ul>
-      </section>
+        <p><strong>Owner:</strong> @Ruka_Forever</p>
+        <p><strong>Co-Owner:</strong> @gabbysyj</p>
+        <p><strong>Rules Manager:</strong> @xavierkoh1</p>
+        <p><strong>Sales Support:</strong> @Rin_yujinsbangs</p>
 
-      <section className="about-section">
         <h3>Meetups</h3>
         <p>
           Offline meetups are available in the <strong>North</strong> and{" "}
-          <strong>West</strong> areas for secure and friendly exchanges.
+          <strong>West</strong> regions. These meetups allow safe and friendly
+          exchanges between members and help strengthen our community offline.
         </p>
-      </section>
 
-      <a
-        href="https://t.me/Ruka1111"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn primary"
-      >
-        Join Our Telegram Channel 💬
-      </a>
+        <div className="about-spacer" />
+
+        <a
+          href="https://t.me/Ruka1111"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="about-link"
+        >
+          Join Our Telegram Channel 💬
+        </a>
+      </div>
     </div>
   );
 }
