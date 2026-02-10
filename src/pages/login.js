@@ -9,7 +9,6 @@ export default function Login() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("")
   const [error, setError] = useState("");
 
   const handleLogin = (e) => {
@@ -31,12 +30,6 @@ export default function Login() {
 
         <form onSubmit={handleLogin}>
           {error && <p className="error">{error}</p>}
-
-          <label>Email</label>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
 
           <label>Username</label>
           <input

@@ -5,7 +5,6 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  // load logged-in user on refresh
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -19,21 +18,23 @@ export function AuthProvider({ children }) {
       password: password.trim(),
     };
 
+    console.log("SIGNUP saving:", account);
     localStorage.setItem("account", JSON.stringify(account));
     return true;
   };
 
   const login = (username, password) => {
     const saved = JSON.parse(localStorage.getItem("account"));
+    console.log("LOGIN saved account:", saved);
+
     if (!saved) return false;
 
-    const inputUsername = username.trim();
-    const inputPassword = password.trim();
+    const u = username.trim();
+    const p = password.trim();
 
-    if (
-      saved.username !== inputUsername ||
-      saved.password !== inputPassword
-    ) {
+    console.log("LOGIN input:", { u, p });
+
+    if (saved.username !== u || saved.password !== p) {
       return false;
     }
 

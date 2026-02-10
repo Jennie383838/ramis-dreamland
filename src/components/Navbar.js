@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
@@ -14,11 +14,8 @@ function Navbar() {
 
   function requireLogin(e, path) {
     e.preventDefault();
-    if (!user) {
-      navigate("/login");
-    } else {
-      navigate(path);
-    }
+    if (!user) navigate("/login");
+    else navigate(path);
   }
 
   function handleCheckoutClick(e) {
@@ -40,61 +37,59 @@ function Navbar() {
   return (
     <>
       <nav className="navbar">
-        <div className="navbar-inner">
-          <Link to="/" className="brand">
-            Rami’s Dreamland
-          </Link>
+        {/* LOGO */}
+        <Link to="/" className="nav-title">
+          Rami’s Dreamland
+        </Link>
 
-          <div className="nav-links">
-            <a
-              href="/home"
-              className="nav-link"
-              onClick={(e) => requireLogin(e, "/home")}
-            >
-              Home
-            </a>
+        {/* LINKS */}
+        <div className="nav-links">
+          <NavLink
+            to="/home"
+            className="nav-link"
+            onClick={(e) => requireLogin(e, "/home")}
+          >
+            Home
+          </NavLink>
 
-            <a
-              href="/about"
-              className="nav-link"
-              onClick={(e) => requireLogin(e, "/about")}
-            >
-              About
-            </a>
+          <NavLink
+            to="/about"
+            className="nav-link"
+            onClick={(e) => requireLogin(e, "/about")}
+          >
+            About
+          </NavLink>
 
-            <a
-              href="/shop"
-              className="nav-link"
-              onClick={(e) => requireLogin(e, "/shop")}
-            >
-              Shop
-            </a>
+          <NavLink
+            to="/shop"
+            className="nav-link"
+            onClick={(e) => requireLogin(e, "/shop")}
+          >
+            Shop
+          </NavLink>
 
-            <a
-              href="/cart"
-              className="nav-link"
-              onClick={(e) => requireLogin(e, "/cart")}
-            >
-              Cart
-              {itemCount > 0 && (
-                <span className="cart-badge">{itemCount}</span>
-              )}
-            </a>
+          <NavLink
+            to="/cart"
+            className="nav-link"
+            onClick={(e) => requireLogin(e, "/cart")}
+          >
+            Cart
+            {itemCount > 0 && <span className="cart-badge">{itemCount}</span>}
+          </NavLink>
 
-            <a
-              href="/checkout"
-              className="nav-link"
-              onClick={handleCheckoutClick}
-            >
-              Checkout
-            </a>
+          <NavLink
+            to="/checkout"
+            className="nav-link"
+            onClick={handleCheckoutClick}
+          >
+            Checkout
+          </NavLink>
 
-            {user && (
-              <button className="nav-link logout" onClick={logout}>
-                Logout
-              </button>
-            )}
-          </div>
+          {user && (
+            <button className="nav-logout" onClick={logout}>
+              Logout
+            </button>
+          )}
         </div>
       </nav>
 

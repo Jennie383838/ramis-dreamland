@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./signup.css";
+import { useAuth } from "../context/AuthContext";
+import "./login.css";
 
 export default function Signup() {
+  const { signup } = useAuth();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignup = (e) => {
     e.preventDefault();
 
-    if (!email || !username || !password) return;
+    if (!username || !password) return;
 
-    // mock successful signup
+    signup(username, password);
     navigate("/login");
   };
 
@@ -25,35 +25,15 @@ export default function Signup() {
         <h1>Create Account 💜</h1>
 
         <form onSubmit={handleSignup}>
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
           <label>Username</label>
           <input
-            type="text"
-            placeholder="Choose a username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
 
-          <div className="password-row">
-            <label>Password</label>
-            <span
-              className="show-btn"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? "Hide" : "Show"}
-            </span>
-          </div>
-
+          <label>Password</label>
           <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Create a password"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
