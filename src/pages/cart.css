@@ -1,13 +1,28 @@
+/* =========================
+   CART CONTAINER
+========================= */
 .cart-container {
   max-width: 900px;
   margin: 60px auto;
-  padding: 20px;
+  padding: 28px;
+
+  background: linear-gradient(
+    135deg,
+    #fff0fa,
+    #f5f0ff,
+    #fff7fc
+  );
+  border-radius: 28px;
 }
 
 .cart-container h1 {
   text-align: center;
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   margin-bottom: 30px;
+
+  background: linear-gradient(90deg, #ff5ecb, #7a5cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .empty {
@@ -15,29 +30,56 @@
   color: #999;
 }
 
+/* =========================
+   CART LIST
+========================= */
 .cart-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
-/* Cart Item */
+/* =========================
+   CART ITEM
+========================= */
 .cart-item {
   display: flex;
   align-items: center;
-  background: #fff;
-  border-radius: 16px;
-  padding: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+
+  border-radius: 20px;
+  padding: 16px 18px;
+
+  box-shadow:
+    0 12px 35px rgba(255, 94, 203, 0.18),
+    0 4px 12px rgba(122, 92, 255, 0.12);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+.cart-item:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 18px 45px rgba(255, 94, 203, 0.28),
+    0 8px 20px rgba(122, 92, 255, 0.2);
+}
+
+/* =========================
+   CART IMAGE
+========================= */
 .cart-item img {
-  width: 90px;
-  height: 90px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
   border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
+/* =========================
+   CART INFO
+========================= */
 .cart-info {
   flex: 1;
   margin-left: 20px;
@@ -45,10 +87,12 @@
 
 .cart-info h3 {
   margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
 }
 
 .price {
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 6px;
 }
 
@@ -57,24 +101,205 @@
   color: #ff6fae;
 }
 
+/* =========================
+   REMOVE BUTTON
+========================= */
 .remove-btn {
   background: none;
   border: none;
   color: #ff4d6d;
   cursor: pointer;
   font-weight: 600;
+
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
+.remove-btn:hover {
+  transform: scale(1.1);
+  color: #ff1f5a;
+}
+
+/* =========================
+   SUMMARY / CHECKOUT
+========================= */
 .cart-summary {
-  margin-top: 30px;
+  margin-top: 34px;
   text-align: right;
 }
 
 .checkout-btn {
-  background: linear-gradient(135deg, #ff8dc7, #ffc1dd);
+  background: linear-gradient(135deg, #ff8dc7, #7a5cff);
   border: none;
-  padding: 12px 30px;
-  border-radius: 30px;
-  font-size: 1rem;
+  padding: 14px 34px;
+  border-radius: 999px;
+
+  font-size: 1.05rem;
+  font-weight: 600;
   cursor: pointer;
+  color: white;
+
+  box-shadow: 0 12px 28px rgba(122, 92, 255, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.checkout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(122, 92, 255, 0.45);
+}
+
+/* =========================
+   QUANTITY CONTROL
+========================= */
+.quantity-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.quantity-control button {
+  width: 30px;
+  height: 30px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: linear-gradient(135deg, #ff5ecb, #7a5cff);
+  color: white;
+
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  box-shadow: 0 5px 14px rgba(122, 92, 255, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.quantity-control button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(122, 92, 255, 0.45);
+}
+
+.quantity-control button:active {
+  transform: scale(0.95);
+}
+
+.quantity-control button:disabled {
+  background: linear-gradient(135deg, #e5e0f5, #f5ddea);
+  color: #aaa;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.quantity-control span {
+  min-width: 36px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(245, 240, 255, 0.95)
+  );
+
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px rgba(122, 92, 255, 0.15);
+}
+
+/* =========================
+   POPUP (READY FOR JS)
+========================= */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(255, 240, 250, 0.6);
+  backdrop-filter: blur(6px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  z-index: 999;
+}
+
+.popup-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.popup {
+  background: linear-gradient(
+    135deg,
+    #fff0fa,
+    #f5f0ff,
+    #fff7fc
+  );
+
+  border-radius: 26px;
+  padding: 26px 32px;
+  max-width: 320px;
+  width: 90%;
+
+  text-align: center;
+
+  box-shadow:
+    0 25px 60px rgba(255, 94, 203, 0.35),
+    0 10px 30px rgba(122, 92, 255, 0.25);
+
+  transform: scale(0.85) translateY(20px);
+  opacity: 0;
+
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.popup-overlay.show .popup {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.popup h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+
+  background: linear-gradient(90deg, #ff5ecb, #7a5cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.popup p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 18px;
+}
+
+.popup button {
+  background: linear-gradient(135deg, #ff5ecb, #7a5cff);
+  border: none;
+  color: white;
+
+  padding: 10px 22px;
+  border-radius: 999px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  box-shadow: 0 10px 25px rgba(122, 92, 255, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.popup button:hover {
+  transform: translateY(-2px);
 }

@@ -1,18 +1,44 @@
 import { Link, NavLink } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 import "./Navbar.css";
 
-const linkClass = ({ isActive }) => `nav-link${isActive ? " active" : ""}`;
+const linkClass = ({ isActive }) =>
+  `nav-link${isActive ? " active" : ""}`;
 
 function Navbar() {
+  const { cart } = useCart();
+
+  const itemCount = cart.reduce(
+    (sum, item) => sum + item.qty,
+    0
+  );
+
   return (
     <nav className="navbar">
       <div className="navbar-inner">
-        <Link to="/" className="brand">Rami’s Dreamland</Link>
+        <Link to="/" className="brand">
+          Rami’s Dreamland
+        </Link>
+
         <div className="nav-links">
-          <NavLink to="/" className={linkClass}>Home</NavLink>
-          <NavLink to="/about" className={linkClass}>About</NavLink>
-          <NavLink to="/shop" className={linkClass}>Shop</NavLink>
-          <NavLink to="/cart" className={linkClass}>Cart</NavLink>
+          <NavLink to="/" className={linkClass}>
+            Home
+          </NavLink>
+
+          <NavLink to="/about" className={linkClass}>
+            About
+          </NavLink>
+
+          <NavLink to="/shop" className={linkClass}>
+            Shop
+          </NavLink>
+
+          <NavLink to="/cart" className={linkClass}>
+            Cart
+            {itemCount > 0 && (
+              <span className="cart-badge">{itemCount}</span>
+            )}
+          </NavLink>
         </div>
       </div>
     </nav>

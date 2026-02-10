@@ -1,30 +1,27 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const saved = localStorage.getItem("cart");
+    return saved ? JSON.parse(saved) : [];
+  });
 
-  // Load cart from localStorage on first load
-  useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
-    if (storedCart) {
-      setCart(JSON.parse(storedCart));
-    }
-  }, []);
-
-  // Save cart whenever it changes
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
+  // ➕ ADD TO CART
   const addToCart = (product) => {
     setCart((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
+      const existing = prev.find(
+        (item) => item.card_name === product.card_name
+      );
 
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id
+          item.card_name === product.card_name
             ? { ...item, qty: item.qty + 1 }
             : item
         );
@@ -34,20 +31,45 @@ export function CartProvider({ children }) {
     });
   };
 
-  const removeFromCart = (id) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
+  // ➖ DECREASE QTY
+  const decreaseQty = (card_name) => {
+    setCart((prev) =>
+      prev
+        .map((item) =>
+          item.card_name === card_name
+            ? { ...item, qty: item.qty - 1 }
+            : item
+        )
+        .filter((item) => item.qty > 0)
+    );
   };
 
-  const clearCart = () => setCart([]);
+  // ❌ REMOVE ITEM
+  const removeFromCart = (card_name) => {
+    setCart((prev) =>
+      prev.filter((item) => item.card_name !== card_name)
+    );
+  };
+
+  // 🧹 CLEAR CART (✅ THIS FIXES YOUR ERROR)
+  const clearCart = () => {
+    setCart([]);
+    localStorage.removeItem("cart");
+  };
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, clearCart }}
+      value={{
+        cart,
+        addToCart,
+        decreaseQty,
+        removeFromCart,
+        clearCart, // ✅ EXPORTED
+      }}
     >
       {children}
     </CartContext.Provider>
   );
 }
 
-// Custom hook (clean usage)
 export const useCart = () => useContext(CartContext);

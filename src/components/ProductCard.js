@@ -18,10 +18,12 @@ export default function ProductCard({ product, onAddToCart }) {
 
       <span className="status">{product.card_status}</span>
 
-      <button onClick={onAddToCart}>
+      <button
+        className="add-cart-btn"
+        onClick={onAddToCart}
+      >
         Add to Cart
       </button>
     </div>
   );
 }
-

@@ -1,94 +1,63 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
-import "./shop.css";
 import { useCart } from "../context/CartContext";
+import "./shop.css";
 
 export default function Shop() {
   const { addToCart } = useCart();
 
   const [products, setProducts] = useState([]);
-  const [filterAvailable, setFilterAvailable] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 🔹 Fetch products from backend
   useEffect(() => {
-    let isMounted = true;
-
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
+        const res = await fetch(
           "https://personalwebsite-1-ngee.onrender.com/products"
         );
 
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
+        if (!res.ok) {
+          throw new Error("Failed to load products");
         }
 
-        const data = await response.json();
-
-        if (isMounted) {
-          setProducts(Array.isArray(data) ? data : []);
-          setError(null);
-        }
+        const data = await res.json();
+        setProducts(Array.isArray(data) ? data : []);
       } catch (err) {
-        if (isMounted) {
-          setError(err.message || "Could not load products");
-        }
+        setError(err.message);
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
     };
 
     fetchProducts();
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
-  // 🔹 Filter available products
-  const filteredProducts = filterAvailable
-    ? products.filter(
-        (p) => String(p.card_status).toLowerCase() === "available"
-      )
-    : products;
+  const handleAddToCart = (product) => {
+    // IMPORTANT: do NOT generate cartId here
+    addToCart(product);
+  };
 
   if (loading) {
-    return <div className="container">Loading products...</div>;
+    return <p className="shop-status">Loading products…</p>;
   }
 
   if (error) {
-    return <div className="container error">{error}</div>;
+    return <p className="shop-status error">{error}</p>;
   }
 
   return (
     <div className="container">
       <h1>Shop</h1>
 
-      <label className="filter-checkbox">
-        <input
-          type="checkbox"
-          checked={filterAvailable}
-          onChange={(e) => setFilterAvailable(e.target.checked)}
-        />
-        Show only available products
-      </label>
-
       <div className="product-grid">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onAddToCart={() => addToCart(product)}
-            />
-          ))
-        ) : (
-          <p>No products available.</p>
-        )}
+        {products.map((product) => (
+          <ProductCard
+            key={product.card_name}
+            product={product}
+            onAddToCart={() => handleAddToCart(product)}
+          />
+        ))}
       </div>
     </div>
   );

@@ -3,26 +3,69 @@
   width: 100%;
   height: 64px;
   padding: 0 32px;
+
   display: flex;
-  align-items: left;
   justify-content: center;
+  align-items: center;
   position: relative;
 
-  background: linear-gradient(90deg, #fff0fa, #ffeefe);
-  border-bottom: 1px solid rgba(255, 94, 203, 0.15);
+  background: linear-gradient(
+    180deg,
+    #ffffff,
+    #fff3fa
+  );
+
+  border-bottom: 1px solid rgba(255, 94, 203, 0.18);
+  backdrop-filter: blur(10px);
 }
 
-/* ===== LOGO / TITLE (FORCED LEFT) ===== */
+/* Soft glow underline */
+.navbar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 94, 203, 0.4),
+    transparent
+  );
+}
+
+/* ===== LOGO (LEFT) ===== */
 .nav-title {
   position: absolute;
   left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
 
-  font-weight: 800;
-  font-size: 1.35rem;
-  letter-spacing: -0.3px;
-  background: linear-gradient(90deg, #ff5ecb, #7a5cff);
+  font-weight: 900;
+  font-size: 1.6rem;
+  letter-spacing: -0.8px;
+
+  background: linear-gradient(
+    90deg,
+    #6a5cff,
+    #ff5ecb,
+    #9b8cff
+  );
+  background-size: 200% auto;
+
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 2px 14px rgba(122, 92, 255, 0.35);
+
+  animation: logoFlow 5s ease infinite;
+}
+
+@keyframes logoFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* ===== LINKS CONTAINER ===== */
@@ -32,8 +75,9 @@
   gap: 18px;
 }
 
-/* ===== LINK ===== */
+/* ===== NAV LINK ===== */
 .nav-link {
+  position: relative; /* 🔑 REQUIRED for badge */
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 500;
@@ -45,7 +89,7 @@
 
 /* Hover */
 .nav-link:hover {
-  background: rgba(255, 94, 203, 0.1);
+  background: rgba(255, 94, 203, 0.12);
   color: #111;
 }
 
@@ -55,4 +99,46 @@
   color: #fff;
   font-weight: 600;
   box-shadow: 0 6px 16px rgba(122, 92, 255, 0.35);
+}
+
+/* ===== CART BADGE ===== */
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -4px;
+
+  min-width: 18px;
+  height: 18px;
+
+  padding: 0 4px;
+
+  background: linear-gradient(135deg, #ff5ecb, #7a5cff);
+  color: #fff;
+
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1;
+  pointer-events: none;
+
+  box-shadow: 0 4px 12px rgba(255, 94, 203, 0.5);
+
+  animation: cartPop 0.25s ease-out;
+}
+
+/* Pop animation */
+@keyframes cartPop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
