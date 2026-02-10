@@ -130,11 +130,9 @@
   display: block;
   width: fit-content;
 
-  margin: 45px auto 0;      /* spacing + centering */
+  margin-top: 45px auto 0;      /* spacing + centering */
 
   padding: 14px 38px;       /* not squeezed */
-
-  margin-top: auto;
 
   border-radius: 999px;
 
