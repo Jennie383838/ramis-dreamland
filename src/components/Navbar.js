@@ -1,29 +1,40 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import "./Navbar.css";
 
-const linkClass = ({ isActive }) =>
-  `nav-link${isActive ? " active" : ""}`;
-
 function Navbar() {
   const { cart } = useCart();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
-  const itemCount = cart.reduce(
-    (sum, item) => sum + item.qty,
-    0
-  );
+  const itemCount = cart.reduce((sum, item) => sum + item.qty, 0);
+
+  function requireLogin(e, path) {
+    e.preventDefault();
+    if (!user) {
+      navigate("/login");
+    } else {
+      navigate(path);
+    }
+  }
 
   function handleCheckoutClick(e) {
     e.preventDefault();
 
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
     if (cart.length === 0) {
       setShowModal(true);
-    } else {
-      navigate("/checkout");
+      return;
     }
+
+    navigate("/checkout");
   }
 
   return (
@@ -35,41 +46,63 @@ function Navbar() {
           </Link>
 
           <div className="nav-links">
-            <NavLink to="/home" className={linkClass}>
+            <a
+              href="/home"
+              className="nav-link"
+              onClick={(e) => requireLogin(e, "/home")}
+            >
               Home
-            </NavLink>
+            </a>
 
-            <NavLink to="/about" className={linkClass}>
+            <a
+              href="/about"
+              className="nav-link"
+              onClick={(e) => requireLogin(e, "/about")}
+            >
               About
-            </NavLink>
+            </a>
 
-            <NavLink to="/shop" className={linkClass}>
+            <a
+              href="/shop"
+              className="nav-link"
+              onClick={(e) => requireLogin(e, "/shop")}
+            >
               Shop
-            </NavLink>
+            </a>
 
-            <NavLink to="/cart" className={linkClass}>
+            <a
+              href="/cart"
+              className="nav-link"
+              onClick={(e) => requireLogin(e, "/cart")}
+            >
               Cart
               {itemCount > 0 && (
                 <span className="cart-badge">{itemCount}</span>
               )}
-            </NavLink>
+            </a>
 
-            {/* 👇 Checkout control */}
-            <a href="/checkout" className="nav-link" onClick={handleCheckoutClick}>
+            <a
+              href="/checkout"
+              className="nav-link"
+              onClick={handleCheckoutClick}
+            >
               Checkout
             </a>
+
+            {user && (
+              <button className="nav-link logout" onClick={logout}>
+                Logout
+              </button>
+            )}
           </div>
         </div>
       </nav>
 
-      {/* 👇 MODAL */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-box">
             <p>Checkout is only available after adding products</p>
-            <button onClick={() => setShowModal(false)}>
-              OK
-            </button>
+            <button onClick={() => setShowModal(false)}>OK</button>
           </div>
         </div>
       )}
