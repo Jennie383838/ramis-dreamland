@@ -1,16 +1,21 @@
-/* ===== ORDER PAGE WRAP ===== */
+/* =========================================
+   ORDER PAGE WRAP
+========================================= */
 .order-wrap {
   max-width: 900px;
   margin: 60px auto;
   padding: 0 24px;
+  position: relative;
 }
 
-/* ===== PAGE TITLE ===== */
+/* =========================================
+   PAGE TITLE
+========================================= */
 .order-wrap h1 {
   text-align: center;
   font-size: 2.2rem;
   font-weight: 800;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 
   background: linear-gradient(
     90deg,
@@ -22,21 +27,22 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* ===== SECTIONS ===== */
+/* =========================================
+   ORDER SECTIONS
+========================================= */
 .order-section {
   background: linear-gradient(
     180deg,
     #ffffff,
     #fff3fa
   );
-
   border-radius: 20px;
   padding: 28px 32px;
   margin-bottom: 28px;
 
   box-shadow:
     0 14px 30px rgba(0, 0, 0, 0.08),
-    0 0 0 1px rgba(255, 94, 203, 0.15);
+    0 0 0 1px rgba(255, 94, 203, 0.12);
 }
 
 /* Section titles */
@@ -47,7 +53,7 @@
   color: #222;
 }
 
-/* Customer info */
+/* Customer details */
 .order-section p {
   font-size: 0.95rem;
   color: #444;
@@ -59,7 +65,9 @@
   color: #111;
 }
 
-/* ===== ORDER ITEMS ===== */
+/* =========================================
+   ORDER ITEMS
+========================================= */
 .order-item {
   display: flex;
   justify-content: space-between;
@@ -76,7 +84,9 @@
   border-bottom: none;
 }
 
-/* ===== TOTAL ===== */
+/* =========================================
+   TOTAL
+========================================= */
 .order-total {
   margin-top: 22px;
   padding-top: 18px;
@@ -85,20 +95,97 @@
   font-size: 1.05rem;
   font-weight: 800;
   text-align: right;
-
   color: #111;
 }
 
-/* ===== BACK TO SHOP BUTTON ===== */
-.back-to-shop-btn {
-  display: block;
-  width: fit-content;
-  margin: 40px auto 0;
+/* =========================================
+   ORDER ID
+========================================= */
+.order-id {
+  margin-top: 12px;
+  text-align: right;
+  font-weight: 600;
+  color: #6a5cff;
+}
 
-  padding: 12px 32px;
+/* =========================================
+   TELEGRAM NOTICE
+========================================= */
+.telegram-notice {
+  margin-top: 30px;
+  padding: 18px 22px;
+  border-radius: 16px;
+
+  background: linear-gradient(
+    90deg,
+    #fff3fa,
+    #f0f4ff
+  );
+
+  font-size: 0.95rem;
+  text-align: center;
+  color: #333;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.telegram-notice strong {
+  color: #6a5cff;
+}
+
+/* =========================================
+   CENTER POPUP
+========================================= */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(6px);
+}
+
+.popup-box {
+  background: #fff;
+  padding: 32px 36px;
+  border-radius: 22px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.25);
+
+  animation: popupAppear 0.35s ease;
+}
+
+.popup-box h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.popup-box p {
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+  color: #444;
+  line-height: 1.5;
+}
+
+.logout-highlight {
+  font-weight: 600;
+  color: #ff5ecb;
+}
+
+.popup-box button {
+  margin-top: 15px;
+  padding: 12px 28px;
   border-radius: 999px;
+  border: none;
+  cursor: pointer;
 
-  text-decoration: none;
   font-weight: 600;
   font-size: 0.95rem;
 
@@ -110,16 +197,57 @@
   color: #fff;
 
   box-shadow: 0 8px 22px rgba(122, 92, 255, 0.35);
-
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.back-to-shop-btn:hover {
+.popup-box button:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 30px rgba(122, 92, 255, 0.45);
 }
 
-/* ===== RESPONSIVE ===== */
+/* Popup animation */
+@keyframes popupAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================
+   CONFETTI EFFECT
+========================================= */
+.confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  animation: confettiDrop 1.2s ease-out forwards;
+  z-index: 1500;
+}
+
+@keyframes confettiDrop {
+  0% {
+    background: none;
+  }
+  20% {
+    background:
+      radial-gradient(circle, #ff5ecb 4px, transparent 5px),
+      radial-gradient(circle, #7a5cff 4px, transparent 5px),
+      radial-gradient(circle, #6a5cff 4px, transparent 5px);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px, 15px 45px;
+  }
+  100% {
+    background: none;
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
 @media (max-width: 600px) {
   .order-wrap {
     margin: 40px auto;
@@ -131,5 +259,9 @@
 
   .order-wrap h1 {
     font-size: 1.8rem;
+  }
+
+  .popup-box {
+    padding: 24px;
   }
 }
