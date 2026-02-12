@@ -29,7 +29,11 @@ export default function Checkout() {
       return;
     }
 
-    // 👉 go to order page with data
+    if (cart.length === 0) {
+      alert("Your cart is empty ");
+      return;
+    }
+
     navigate("/order", {
       state: {
         customer: form,
@@ -50,7 +54,7 @@ export default function Checkout() {
       ) : (
         <>
           <div className="checkout-grid">
-            {/* ORDER SUMMARY */}
+
             <div className="order-summary">
               <h2>Your Order 💿</h2>
 
@@ -72,7 +76,6 @@ export default function Checkout() {
               </div>
             </div>
 
-            {/* FORM */}
             <div className="checkout-form">
               <h2>Your Details 💖</h2>
 
@@ -85,6 +88,7 @@ export default function Checkout() {
                 onChange={handleChange}
               />
             </div>
+
           </div>
 
           <button className="place-order-btn" onClick={handleSubmit}>

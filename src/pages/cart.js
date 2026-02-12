@@ -171,7 +171,7 @@ export default function Cart() {
                 cursor: loading ? "not-allowed" : "pointer",
               }}
             >
-              {loading ? "Preparing Stage ✨" : "Checkout"}
+              {loading ? "Preparing order ✨" : "Checkout"}
             </button>
           </>
         )}
@@ -180,7 +180,7 @@ export default function Cart() {
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-box">
-            <p>🎉 Ready for checkout! Your idols are waiting 💖</p>
+            <p>🎉 Congragulations ! You are ready for checkout! 💖</p>
           </div>
         </div>
       )}

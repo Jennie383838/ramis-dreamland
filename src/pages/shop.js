@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import ProductCard from "../components/ProductCard";
 import { useCart } from "../context/CartContext";
 import "./shop.css";
@@ -9,6 +9,9 @@ export default function Shop() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [selectedCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -33,9 +36,19 @@ export default function Shop() {
     fetchProducts();
   }, []);
 
-  const handleAddToCart = (product) => {
-    addToCart(product);
-  };
+  const filteredProducts = useMemo(() => {
+    let updated = [...products];
+
+    if (searchTerm.trim() !== "") {
+      updated = updated.filter((product) =>
+        product.card_name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+      );
+    }
+
+    return updated;
+  }, [products, searchTerm]);
 
   if (loading) {
     return <div className="state-box">Loading products…</div>;
@@ -49,15 +62,33 @@ export default function Shop() {
     <div className="shop-wrap">
       <h1>Shop</h1>
 
-      {/* 👇 THIS MUST MATCH .products-grid */}
+      <div className="shop-controls">
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+
+        <select value={selectedCategory} disabled>
+          <option value="All">All</option>
+        </select>
+      </div>
+
       <div className="products-grid">
-        {products.map((product) => (
-          <ProductCard
-            key={product.card_name}
-            product={product}
-            onAddToCart={() => handleAddToCart(product)}
-          />
-        ))}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <ProductCard
+              key={product.card_name}
+              product={product}
+              onAddToCart={() => addToCart(product)}
+            />
+          ))
+        ) : (
+          <div className="state-box">
+            No products found.
+          </div>
+        )}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { AuthProvider } from "./context/AuthContext";
 
 import Navbar from "./components/Navbar";
 
-// pages (MAKE SURE FOLDER NAMES MATCH CASE)
+// pages
 import Home from "./pages/home";
 import About from "./pages/about";
 import Shop from "./pages/shop";
@@ -13,6 +13,7 @@ import Checkout from "./pages/checkout";
 import OrderPage from "./pages/OrderPage";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
+
 import ProtectedRoute from "./components/ProtectedRoutes";
 
 import "./App.css";
@@ -27,13 +28,11 @@ export default function App() {
           {/* default */}
           <Route path="/" element={<Navigate to="/home" />} />
 
-          {/* public */}
+          {/* public routes */}
           <Route path="/login" element={<Login />} />
-
-          {/* public */}
           <Route path="/signup" element={<Signup />} />
 
-          {/* protected */}
+          {/* protected user routes */}
           <Route
             path="/home"
             element={

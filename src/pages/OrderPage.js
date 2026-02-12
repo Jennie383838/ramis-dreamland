@@ -1,4 +1,4 @@
-import { useLocation, Navigate, Link } from "react-router-dom";
+import { useLocation, Navigate, } from "react-router-dom";
 import { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import "./Order.css";
@@ -13,12 +13,11 @@ export default function OrderPage() {
     }
   }, [clearCart, state]);
 
-  // ⬇️ redirect AFTER hooks are declared
   if (!state) {
-    return <Navigate to="/" />;
+    return <Navigate to="/home" />;
   }
 
-  const { customer, cart, total } = state;
+  const { customer, cart, total, orderId } = state;
 
   return (
     <div className="order-wrap">
@@ -43,13 +42,18 @@ export default function OrderPage() {
         ))}
 
         <div className="order-total">
-          Total Paid: ${total}
+          Total Paid: ${Number(total).toFixed(2)}
+        </div>
+
+        <div className="order-id">
+          Order ID: #{orderId}
         </div>
       </section>
 
-      <Link to="/shop" className="back-to-shop-btn">
-        Back to Shop 🛍️
-      </Link>
+      <div className="telegram-notice">
+        📸 Please screenshot your order and send it to  
+        <strong> Ruka_Forever </strong> on Telegram.
+      </div>
     </div>
   );
 }
