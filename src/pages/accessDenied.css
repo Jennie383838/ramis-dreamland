@@ -1,0 +1,49 @@
+/* Background and center box */
+.denied-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+}
+
+/* White box */
+.denied-box {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading */
+.denied-box h1 {
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+  background: linear-gradient(90deg, #ff5ecb, #7a5cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Paragraph */
+.denied-box p {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Button */
+.denied-box button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff5ecb, #7a5cff);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.denied-box button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(122, 92, 255, 0.4);
+}

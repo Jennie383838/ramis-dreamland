@@ -5,6 +5,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
+  // Load logged-in user from localStorage on page load
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -12,10 +13,22 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  /**
+   * Member signup only
+   * Admin cannot sign up through the form
+   */
   const signup = (username, password) => {
+    const existing = JSON.parse(localStorage.getItem("account"));
+
+    if (existing && existing.username === username.trim()) {
+      // username already exists
+      return false;
+    }
+
     const account = {
       username: username.trim(),
       password: password.trim(),
+      role: "member", // all signups default to member
     };
 
     console.log("SIGNUP saving:", account);
@@ -23,27 +36,36 @@ export function AuthProvider({ children }) {
     return true;
   };
 
+  /**
+   * Login function
+   * Sets user data including role
+   */
   const login = (username, password) => {
     const saved = JSON.parse(localStorage.getItem("account"));
-    console.log("LOGIN saved account:", saved);
 
     if (!saved) return false;
 
     const u = username.trim();
     const p = password.trim();
 
-    console.log("LOGIN input:", { u, p });
-
     if (saved.username !== u || saved.password !== p) {
       return false;
     }
 
-    const userData = { username: saved.username };
+    // Store username + role
+    const userData = {
+      username: saved.username,
+      role: saved.role, // "member" or "admin"
+    };
+
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
     return true;
   };
 
+  /**
+   * Logout
+   */
   const logout = () => {
     localStorage.removeItem("user");
     setUser(null);
@@ -56,4 +78,5 @@ export function AuthProvider({ children }) {
   );
 }
 
+// Custom hook to use auth context
 export const useAuth = () => useContext(AuthContext);

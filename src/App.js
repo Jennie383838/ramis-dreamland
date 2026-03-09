@@ -13,8 +13,14 @@ import Checkout from "./pages/checkout";
 import OrderPage from "./pages/OrderPage";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
+import ForgotPassword from "./pages/forgetpassword";
+import ResetPassword from "./pages/ResetPassword";
+import AdminDashboard from "./pages/admindashboard";
+import AccessDenied from "./pages/AccessDenied";
 
+// route protection
 import ProtectedRoute from "./components/ProtectedRoutes";
+import AdminRoute from "./components/AdminRoute";
 
 import "./App.css";
 
@@ -25,14 +31,17 @@ export default function App() {
         <Navbar />
 
         <Routes>
-          {/* default */}
+
+          {/* default redirect */}
           <Route path="/" element={<Navigate to="/home" />} />
 
           {/* public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
-          {/* protected user routes */}
+          {/* protected member routes */}
           <Route
             path="/home"
             element={
@@ -41,7 +50,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/about"
             element={
@@ -50,7 +58,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/shop"
             element={
@@ -59,7 +66,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/cart"
             element={
@@ -68,7 +74,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/checkout"
             element={
@@ -77,7 +82,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/order"
             element={
@@ -86,6 +90,23 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* admin-only route */}
+          <Route
+            path="/admin-dashboard"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+
+          {/* access denied page for unauthorized users */}
+          <Route path="/access-denied" element={<AccessDenied />} />
+
+          {/* fallback for undefined routes */}
+          <Route path="*" element={<Navigate to="/home" replace />} />
+
         </Routes>
       </CartProvider>
     </AuthProvider>
