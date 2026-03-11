@@ -9,11 +9,17 @@ export default function Signup() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignup = (e) => {
     e.preventDefault();
 
-    if (!username || !password) return;
+    if (!username || !password || !confirmPassword) return;
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
 
     signup(username, password);
     navigate("/login");
@@ -22,11 +28,13 @@ export default function Signup() {
   return (
     <div className="login-page">
       <div className="login-box">
-        <h1>Create Account 💜</h1>
+        <h1>Create your account</h1>
+        <p className="subtitle">Join our K-pop store and start shopping 💜</p>
 
         <form onSubmit={handleSignup}>
           <label>Username</label>
           <input
+            placeholder="Enter your username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -34,18 +42,30 @@ export default function Signup() {
           <label>Password</label>
           <input
             type="password"
+            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <p
-            className="signup-text clickable"
-            onClick={() => navigate("/login")}
-          >
-            Already have an account?
-          </p>
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            placeholder="Confirm your password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
 
-          <button type="submit">SIGN UP</button>
+          <button type="submit">Create Account</button>
+
+          <p className="signup-text">
+            Already have an account?{" "}
+            <span
+              className="clickable"
+              onClick={() => navigate("/login")}
+            >
+              Sign in
+            </span>
+          </p>
         </form>
       </div>
     </div>

@@ -6,9 +6,11 @@ export default function ProductCard({ product, onAddToCart }) {
   return (
     <div className="product-card">
       <img
-        src={`/products/${product.card_image}`} // <-- changed line
+        src={`/images/products/${product.card_image}`} // ✅ fixed path
         alt={product.card_name}
-        onError={(e) => { e.target.src = "/products/default.jpg"; }} // optional fallback
+        onError={(e) => {
+          e.target.src = "/images/products/default.jpg"; // fallback image
+        }}
       />
 
       <h3>{product.card_name}</h3>
